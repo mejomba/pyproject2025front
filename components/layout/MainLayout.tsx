@@ -15,9 +15,9 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
             <Box display="flex" flex="1">
 
                 {/* begin right sidebar */}
-                <Box width="240px">
+                {/*<Box width="240px">*/}
                     <Sidebar />
-                </Box>
+                {/*</Box>*/}
                 {/* end right sidebar */}
 
                 {/* begin main content */}

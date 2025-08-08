@@ -1,44 +1,32 @@
-// components/Sidebar.tsx
+// components/layout/SidebarWrapper.tsx
 'use client'
 
-import {
-    Box,
-    IconButton,
-    List,
-    ListItem,
-    ListItemIcon,
-    ListItemText,
-    Typography,
-    useMediaQuery,
-    Paper,
-} from '@mui/material'
+import { useState } from 'react'
+import { Box, Paper, List, ListItem, ListItemIcon, ListItemText, Typography } from '@mui/material'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
 import HomeIcon from '@mui/icons-material/Home'
 import SchoolIcon from '@mui/icons-material/School'
 import QuizIcon from '@mui/icons-material/Quiz'
-import { useTheme } from '@mui/material/styles'
-import { useState } from 'react'
 
-export default function Sidebar() {
+export default function SidebarWrapper({ children }: { children: React.ReactNode }) {
     const [open, setOpen] = useState(false)
-    const theme = useTheme()
-    const isMobile = useMediaQuery(theme.breakpoints.down('md'))
+    const sidebarWidth = 250
 
     return (
-        <>
-            {/* سایدبار سفارشی */}
+        <Box sx={{ display: 'flex' }}>
+            {/* Sidebar */}
             <Paper
                 elevation={3}
                 sx={{
-                    width: 250,
+                    width: sidebarWidth,
                     height: '100vh',
                     position: 'fixed',
                     top: 0,
                     right: 0,
-                    zIndex: 1399,
-                    transform: open ? 'translateX(0)' : 'translateX(100%)',
-                    transition: 'transform 0.2s ease-in-out',
+                    zIndex: 1300,
+                    transform: open ? 'translateX(0)' : `translateX(${sidebarWidth}px)`,
+                    transition: 'transform 0.3s ease-in-out',
                     borderRadius: 0,
                     display: 'flex',
                     flexDirection: 'column',
@@ -49,7 +37,7 @@ export default function Sidebar() {
                         منوی اصلی
                     </Typography>
                     <List>
-                        {[...Array(20)].map((_, i) => (
+                        {[...Array(10)].map((_, i) => (
                             <ListItem button key={i}>
                                 <ListItemIcon>
                                     {i % 3 === 0 ? <HomeIcon /> : i % 3 === 1 ? <SchoolIcon /> : <QuizIcon />}
@@ -61,29 +49,43 @@ export default function Sidebar() {
                 </Box>
             </Paper>
 
-            {/* دکمه فلش شناور متصل به سایدبار */}
+            {/* Toggle button */}
             <Box
                 sx={{
                     position: 'fixed',
                     top: '50%',
-                    right: open ? 250 - 20 : 0,
+                    right: open ? sidebarWidth - 20 : 0,
                     transform: 'translateY(-50%)',
                     zIndex: 1400,
                     width: 40,
                     height: 40,
-                    borderRadius: open ? '50%' : '40px 0 0 40px',
+                    borderRadius: '0 4px 4px 0',
                     bgcolor: 'primary.main',
                     color: '#fff',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     cursor: 'pointer',
-                    transition: 'right 0.2s ease-in-out',
+                    transition: 'right 0.3s ease-in-out',
                 }}
                 onClick={() => setOpen(!open)}
             >
                 {open ? <ArrowForwardIosIcon fontSize="small" /> : <ArrowBackIosNewIcon fontSize="small" />}
             </Box>
-        </>
+
+            {/* Main content */}
+            <Box
+                component="main"
+                sx={{
+                    flexGrow: 1,
+                    transition: 'margin-right 0.3s ease-in-out',
+                    marginRight: open ? `${sidebarWidth}px` : 0,
+                    width: '100%',
+                    p: 3,
+                }}
+            >
+                {children}
+            </Box>
+        </Box>
     )
 }

@@ -2,11 +2,11 @@
 
 import { useSearchParams, useRouter } from 'next/navigation'
 import { TextField, Button, Typography, Box } from '@mui/material'
-import { useState } from 'react'
+import { useState, Suspense } from 'react'
 import api from '@/lib/axios'
 import ResendOtp from "@/components/auth/ResendOtp";
 
-export default function OtpVerifyPage() {
+function Otp(){
     const searchParams = useSearchParams()
     const router = useRouter()
 
@@ -64,4 +64,12 @@ export default function OtpVerifyPage() {
             <ResendOtp phone={phone} delay={10} backend="sms" />
         </Box>
     )
+}
+export default function OtpVerifyPage() {
+    return(
+        <Suspense fallback={<Box>در حال بارگذاری...</Box>}>
+            <Otp />
+        </Suspense>
+        )
+
 }

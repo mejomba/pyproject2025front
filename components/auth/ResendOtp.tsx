@@ -5,7 +5,7 @@ import { Button, Typography } from '@mui/material'
 import api from '@/lib/axios'
 
 interface ResendOtpProps {
-    phone: string
+    phone: string | null
     delay?: number,
     backend?: 'sms' | 'email'
 }

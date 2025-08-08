@@ -2,11 +2,11 @@
 
 import { useSearchParams, useRouter } from 'next/navigation'
 import { TextField, Button, Typography, Box } from '@mui/material'
-import { useState } from 'react'
+import {Suspense, useState} from 'react'
 import api from '@/lib/axios'
 import axios from "axios";
 
-export default function OtpVerifyPage() {
+function Otp(){
     const searchParams = useSearchParams()
     const router = useRouter()
     const phone = searchParams.get('phone')
@@ -50,4 +50,11 @@ export default function OtpVerifyPage() {
             </Button>
         </Box>
     )
+}
+export default function OtpVerifyPage() {
+    return(
+        <Suspense fallback={<div>در حال بارگذاری...</div>}>
+            <Otp />
+        </Suspense>
+            )
 }
