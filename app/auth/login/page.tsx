@@ -1,86 +1,73 @@
 'use client'
 
-import React, { useState } from 'react';
-import {
-  Container,
-  Box,
-  Typography,
-  TextField,
-  FormControl,
-  FormLabel,
-  RadioGroup,
-  FormControlLabel,
-  Radio,
-  Button,
-  Alert,
-} from '@mui/material';
+import { useEffect, useState } from 'react'
+import {passwordLoginOrSignup, phoneCheck, saveTokens, sendOtp} from '@/lib/api/auth'
+import { useRouter } from 'next/navigation'
+import api from '@/lib/axios'
+import { Box, TextField, Typography, Button, RadioGroup, FormControlLabel, Radio } from '@mui/material'
 
-const LoginForm = () => {
-  const [phone, setPhone] = useState('');
-  const [method, setMethod] = useState('otp');
-  const [error, setError] = useState('');
+export default function LoginPage() {
+    const [phone, setPhone] = useState('')
+    const [password, setPassword] = useState('')
+    const [method, setMethod] = useState<'password' | 'otp'>('otp')
+    const [loading, setLoading] = useState(false)
+    const router = useRouter()
+    const [error, setError] = useState('')
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // پیاده‌سازی منطق ارسال فرم
-  };
+    const handleSubmit = async () => {
+        setLoading(true)
+        setError('')
+        try {
+            const result = await phoneCheck(phone, method)
+            console.log(result)
+            const next_step = result.next_step
+            if (method === 'otp'){
+                await sendOtp(phone)
+                router.push(`/auth/otp/verify?phone=${phone}&next_step=${next_step}`)
+            } else if (method === 'password') {
+                const res = await passwordLoginOrSignup(phone, password)
+                saveTokens(res)  // res = response.data
+                router.push('/') // یا هر مسیر مناسب
+            }
 
-  return (
-      <Container maxWidth="sm">
-        <Box
-            component="form"
-            onSubmit={handleSubmit}
-            sx={{
-              mt: 4,
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 2,
-            }}
-        >
-          <Typography variant="h5" component="h1" align="center">
-            ورود / ثبت‌نام
-          </Typography>
+        } catch (err) {
+            console.error(err)
+        } finally {
+            setLoading(false)
+        }
+    }
 
-          <TextField
-              id="phone"
-              label="شماره موبایل"
-              variant="outlined"
-              fullWidth
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              required
-              placeholder="موبایل یا ایمیل"
-          />
+    return (
+        <Box display="flex" flexDirection="column" gap={2} maxWidth={400} mx="auto" mt={8}>
+            <Typography variant="h5" fontWeight="bold" textAlign="center">ورود به سامانه</Typography>
 
-          <FormControl component="fieldset">
-            <FormLabel component="legend">روش ورود:</FormLabel>
-            <RadioGroup
-                row
-                name="method"
-                value={method}
-                onChange={(e) => setMethod(e.target.value)}
-            >
-              <FormControlLabel
-                  value="otp"
-                  control={<Radio />}
-                  label="رمز یکبار مصرف"
-              />
-              <FormControlLabel
-                  value="password"
-                  control={<Radio />}
-                  label="رمز عبور"
-              />
+            <TextField
+                label="شماره تلفن"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                fullWidth
+            />
+
+            <RadioGroup row value={method} onChange={(e) => setMethod(e.target.value as 'password' | 'otp')}>
+                <FormControlLabel value="password" control={<Radio />} label="رمز عبور" />
+                <FormControlLabel value="otp" control={<Radio />} label="رمز یک‌بار مصرف" />
             </RadioGroup>
-          </FormControl>
 
-          {error && <Alert severity="error">{error}</Alert>}
+            {error && <Typography color="error">{error}</Typography>}
 
-          <Button type="submit" variant="contained" color="primary">
-            ادامه
-          </Button>
+            {method === 'password' && (
+                <TextField
+                    label="رمز عبور"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    fullWidth
+                />
+            )}
+
+            <Button variant="contained" onClick={handleSubmit} disabled={loading}>
+                {loading ? 'در حال ارسال...' : 'ادامه'}
+            </Button>
         </Box>
-      </Container>
-  );
-};
-
-export default LoginForm;
+    )
+}

@@ -1,20 +1,24 @@
 'use client'
 
-import { CacheProvider } from '@emotion/react'
 import { ThemeProvider, CssBaseline } from '@mui/material'
-import createEmotionCache from '@/lib/emotion-cache'
-import theme from '@/lib/theme'
-
-const emotionCache = createEmotionCache()
+import { useEffect, useMemo, useState } from 'react'
+import { getTheme } from '@/lib/theme'
+import useMediaQuery from '@mui/material/useMediaQuery'
 
 export default function ThemeRegistry({ children }: { children: React.ReactNode }) {
+    const prefersDark = useMediaQuery('(prefers-color-scheme: dark)')
+    const [mode, setMode] = useState<'light' | 'dark'>(prefersDark ? 'dark' : 'light')
+
+    useEffect(() => {
+        setMode(prefersDark ? 'dark' : 'light')
+    }, [prefersDark])
+
+    const theme = useMemo(() => getTheme(mode), [mode])
+
     return (
-        <CacheProvider value={emotionCache}>
-            <ThemeProvider theme={theme}>
-                <CssBaseline />
-                {children}
-            </ThemeProvider>
-        </CacheProvider>
+        <ThemeProvider theme={theme}>
+            <CssBaseline />
+            {children}
+        </ThemeProvider>
     )
 }
-
