@@ -1,24 +1,43 @@
 'use client'
 
-import { ThemeProvider, CssBaseline } from '@mui/material'
-import { useEffect, useMemo, useState } from 'react'
-import { getTheme } from '@/lib/theme'
-import useMediaQuery from '@mui/material/useMediaQuery'
+import { createTheme, ThemeProvider, CssBaseline } from '@mui/material'
+import { prefixer } from 'stylis'
+import rtlPlugin from 'stylis-plugin-rtl'
+import { CacheProvider } from '@emotion/react'
+import createCache from '@emotion/cache'
+import { useMemo } from 'react'
 
+// تنظیم RTL برای Emotion
+const createRtlCache = () =>
+    createCache({
+        key: 'muirtl',
+        stylisPlugins: [prefixer, rtlPlugin],
+    })
+
+// می‌تونی darkMode رو هم از context بگیری
 export default function ThemeRegistry({ children }: { children: React.ReactNode }) {
-    const prefersDark = useMediaQuery('(prefers-color-scheme: dark)')
-    const [mode, setMode] = useState<'light' | 'dark'>(prefersDark ? 'dark' : 'light')
-
-    useEffect(() => {
-        setMode(prefersDark ? 'dark' : 'light')
-    }, [prefersDark])
-
-    const theme = useMemo(() => getTheme(mode), [mode])
+    const cache = useMemo(() => createRtlCache(), [])
+    const theme = useMemo(
+        () =>
+            createTheme({
+                direction: 'rtl',
+                palette: {
+                    mode: 'light', // یا "dark" از context
+                    primary: { main: '#1976d2' },
+                },
+                typography: {
+                    fontFamily: 'iranyekan, Roboto, sans-serif',
+                },
+            }),
+        []
+    )
 
     return (
-        <ThemeProvider theme={theme}>
-            <CssBaseline />
-            {children}
-        </ThemeProvider>
+        <CacheProvider value={cache}>
+            <ThemeProvider theme={theme}>
+                <CssBaseline />
+                {children}
+            </ThemeProvider>
+        </CacheProvider>
     )
 }

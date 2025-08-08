@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import '@/app/globals.css'
 import ThemeRegistry from '@/components/ThemeRegistry'
+import SidebarWrapper from "@/components/layout/SidebarWrapper";
+import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
+import MobileNav from "@/components/layout/MobileNav";
 
 
 

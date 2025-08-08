@@ -1,86 +1,79 @@
-// components/Sidebar.tsx
+// components/layout/Sidebar.tsx
 'use client'
 
-import {
-    Box,
-    IconButton,
-    List,
-    ListItem,
-    ListItemIcon,
-    ListItemText,
-    Typography,
-    useMediaQuery,
-    Paper,
-} from '@mui/material'
+import { Box, List, ListItem, ListItemIcon, ListItemText, Paper, IconButton, useMediaQuery, useTheme } from '@mui/material'
+import HomeIcon from '@mui/icons-material/Home'
+import SettingsIcon from '@mui/icons-material/Settings'
+import LogoutIcon from '@mui/icons-material/Logout'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos'
-import HomeIcon from '@mui/icons-material/Home'
-import SchoolIcon from '@mui/icons-material/School'
-import QuizIcon from '@mui/icons-material/Quiz'
-import { useTheme } from '@mui/material/styles'
-import { useState } from 'react'
 
-export default function Sidebar() {
-    const [open, setOpen] = useState(false)
+interface Props {
+    open: boolean
+    onToggle: () => void
+    width: number
+}
+
+export default function Sidebar({ open, onToggle, width }: Props) {
     const theme = useTheme()
     const isMobile = useMediaQuery(theme.breakpoints.down('md'))
 
     return (
         <>
-            {/* سایدبار سفارشی */}
             <Paper
                 elevation={3}
                 sx={{
-                    width: 250,
+                    width: width,
                     height: '100vh',
                     position: 'fixed',
                     top: 0,
                     right: 0,
-                    zIndex: 1399,
-                    transform: open ? 'translateX(0)' : 'translateX(100%)',
-                    transition: 'transform 0.2s ease-in-out',
+                    zIndex: 1300,
+                    transform: open ? 'translateX(0)' : `translateX(${width}px)`,
+                    transition: 'transform 0.3s ease-in-out',
                     borderRadius: 0,
                     display: 'flex',
                     flexDirection: 'column',
+                    overflowY: 'auto',
+                    pt: 2,
                 }}
             >
-                <Box sx={{ p: 2, flexGrow: 1, overflowY: 'auto' }}>
-                    <Typography variant="h6" mb={2}>
-                        منوی اصلی
-                    </Typography>
-                    <List>
-                        {[...Array(20)].map((_, i) => (
-                            <ListItem button key={i}>
-                                <ListItemIcon>
-                                    {i % 3 === 0 ? <HomeIcon /> : i % 3 === 1 ? <SchoolIcon /> : <QuizIcon />}
-                                </ListItemIcon>
-                                <ListItemText primary={`آیتم ${i + 1}`} />
-                            </ListItem>
-                        ))}
-                    </List>
-                </Box>
+                <List>
+                    <ListItem button>
+                        <ListItemIcon><HomeIcon /></ListItemIcon>
+                        <ListItemText primary="خانه" />
+                    </ListItem>
+                    <ListItem button>
+                        <ListItemIcon><SettingsIcon /></ListItemIcon>
+                        <ListItemText primary="تنظیمات" />
+                    </ListItem>
+                    <ListItem button>
+                        <ListItemIcon><LogoutIcon /></ListItemIcon>
+                        <ListItemText primary="خروج" />
+                    </ListItem>
+                </List>
             </Paper>
 
-            {/* دکمه فلش شناور متصل به سایدبار */}
+            {/* Toggle Button */}
             <Box
                 sx={{
                     position: 'fixed',
                     top: '50%',
-                    right: open ? 250 - 20 : 0,
+                    right: open ? width - 20 : 0,
                     transform: 'translateY(-50%)',
                     zIndex: 1400,
                     width: 40,
                     height: 40,
-                    borderRadius: open ? '50%' : '40px 0 0 40px',
+                    borderRadius: '0 4px 4px 0',
                     bgcolor: 'primary.main',
                     color: '#fff',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     cursor: 'pointer',
-                    transition: 'right 0.2s ease-in-out',
+                    transition: 'right 0.3s ease-in-out',
                 }}
-                onClick={() => setOpen(!open)}
+                onClick={onToggle}
             >
                 {open ? <ArrowForwardIosIcon fontSize="small" /> : <ArrowBackIosNewIcon fontSize="small" />}
             </Box>
