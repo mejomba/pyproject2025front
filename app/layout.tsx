@@ -1,11 +1,6 @@
-import type { Metadata } from "next";
 import '@/app/globals.css'
 import ThemeRegistry from '@/components/ThemeRegistry'
-import SidebarWrapper from "@/components/layout/SidebarWrapper";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
-import MobileNav from "@/components/layout/MobileNav";
-
+import { cookies } from 'next/headers';
 
 
 export const metadata = {
@@ -14,10 +9,15 @@ export const metadata = {
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+    const cookieStore = cookies();
+    const modeCookie = cookieStore.get('color-mode')?.value;
+    const initialMode = modeCookie === 'dark' ? 'dark' : 'light';
     return (
         <html lang="fa" dir="rtl">
         <body>
-        <ThemeRegistry>{children}</ThemeRegistry>
+        {/*<ThemeRegistry>{children}</ThemeRegistry>*/}
+        <ThemeRegistry initialMode={initialMode}>{children}</ThemeRegistry>
+        jafar
         </body>
         </html>
     )

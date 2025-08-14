@@ -29,7 +29,7 @@ export const getTheme = (mode: 'light' | 'dark'): ThemeOptions =>
                 },
             },
             typography: {
-                fontFamily: 'IRANSans, Vazirmatn, Roboto, sans-serif',
+                fontFamily: 'Shabnam',
             },
             components: {
                 MuiCssBaseline: {

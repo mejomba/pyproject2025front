@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import { Box, Container, Typography, InputBase } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
+import ColorModeToggle from "@/components/comm/ColorToggleMode";
 
 const navItems = [
     { label: 'دوره‌ها', href: '/courses' },
@@ -35,6 +36,7 @@ export default function Navbar() {
                     <SearchIcon fontSize="small" color="action" />
                     <InputBase placeholder="جستجو..." sx={{ flex: 1, fontSize: '0.9rem' }} />
                 </Box>
+                <ColorModeToggle />
             </Container>
         </Box>
     )
