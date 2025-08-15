@@ -27,7 +27,7 @@ export default function Sidebar({ open, onToggle, width }: Props) {
                     height: '100vh',
                     position: 'fixed',
                     top: 0,
-                    right: 0,
+                    left: `-${width}px`,
                     zIndex: 1300,
                     transform: open ? 'translateX(0)' : `translateX(${width}px)`,
                     transition: 'transform 0.3s ease-in-out',
@@ -59,23 +59,23 @@ export default function Sidebar({ open, onToggle, width }: Props) {
                 sx={{
                     position: 'fixed',
                     top: '50%',
-                    right: open ? width - 20 : 0,
+                    left: !open ? width - 20 : 0,
                     transform: 'translateY(-50%)',
                     zIndex: 1400,
                     width: 40,
                     height: 40,
-                    borderRadius: '0 4px 4px 0',
+                    borderRadius: '3px 40px 40px 3px',
                     bgcolor: 'primary.main',
                     color: '#fff',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     cursor: 'pointer',
-                    transition: 'right 0.3s ease-in-out',
+                    transition: 'left 0.3s ease-in-out',
                 }}
                 onClick={onToggle}
             >
-                {open ? <ArrowForwardIosIcon fontSize="small" /> : <ArrowBackIosNewIcon fontSize="small" />}
+                {open ? <ArrowBackIosNewIcon fontSize="small" /> : <ArrowForwardIosIcon fontSize="small" />}
             </Box>
         </>
     )

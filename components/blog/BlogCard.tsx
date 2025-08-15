@@ -19,7 +19,7 @@ import {
     Button,
     Skeleton,
 } from "@mui/material";
-import theme from "tailwindcss/defaultTheme";
+// import theme from "tailwindcss/defaultTheme";
 
 export type BlogCardVariant = "grid" | "list";
 
@@ -141,9 +141,9 @@ export const BlogCard: React.FC<BlogCardProps> = React.memo(
                                       sx={{
                                           cursor: "pointer",
                                           transition: "background-color 0.3s ease",
-                                          "&:hover": {
-                                              backgroundColor: "#123456",
-                                          }, }}  />
+                                          "&:hover":
+                                              { bgcolor: 'action.hover' },
+                                          }}  />
                             ))}
                         </Box>
                     ) : null}

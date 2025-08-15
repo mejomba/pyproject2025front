@@ -1,8 +1,8 @@
 // components/layout/Navbar.tsx (Server Component)
 import Link from 'next/link'
-import { Box, Container, Typography, InputBase } from '@mui/material'
-import SearchIcon from '@mui/icons-material/Search'
+import {Box, Container, InputBase, Typography} from '@mui/material'
 import ColorModeToggle from "@/components/comm/ColorToggleMode";
+import SearchIcon from "@mui/icons-material/Search";
 
 const navItems = [
     { label: 'دوره‌ها', href: '/courses' },
@@ -32,9 +32,10 @@ export default function Navbar() {
                 </Box>
 
                 {/* Left: Search */}
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, bgcolor: '#f1f1f1', px: 1, borderRadius: 1, width: { xs: '40%', md: '25%' } }}>
+                <Box  sx={{ display: 'flex', alignItems: 'center', gap: 1, px: 1, borderRadius: 1, border: '1px solid',
+                    borderColor: 'divider', width: { xs: '40%', md: '25%' } }}>
                     <SearchIcon fontSize="small" color="action" />
-                    <InputBase placeholder="جستجو..." sx={{ flex: 1, fontSize: '0.9rem' }} />
+                    <InputBase placeholder="جستجو..." sx={{ flex: 1, fontSize: '0.9rem'}} />
                 </Box>
                 <ColorModeToggle />
             </Container>
