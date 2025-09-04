@@ -3,6 +3,12 @@ import Link from 'next/link'
 import {Box, Container, InputBase, Typography} from '@mui/material'
 import ColorModeToggle from "@/components/comm/ColorToggleMode";
 import SearchIcon from "@mui/icons-material/Search";
+// import Image from "next/image";
+// import logoHorizontalTransparent from "@/images/logos/logo_horizontal_transparent.svg";
+// import darkLogoHorizontalTransparent from "@/images/logos/dark_logo_horizontal_transparent.svg";
+// import logoTransparent from "@/images/logos/logo_transparent.svg";
+import {LogoHorizontalTransparent, LogoTransparent} from "@/components/comm/Logo"
+
 
 const navItems = [
     { label: 'دوره‌ها', href: '/courses' },
@@ -16,17 +22,13 @@ export default function Navbar() {
         <Box sx={{ width: '100%', borderBottom: '1px solid #e0e0e0', bgcolor: 'background.paper' }}>
             <Container maxWidth="lg" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', py: 1 }}>
                 {/* Right: Logo */}
-                <Box>
-                    <Link href="/">
-                        <Typography variant="h6" fontWeight="bold" color="primary">PyProject2025</Typography>
-                    </Link>
-                </Box>
+                <LogoHorizontalTransparent />
 
                 {/* Center: Navigation Links */}
                 <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 3 }}>
                     {navItems.map((item) => (
-                        <Link key={item.href} href={item.href}>
-                            <Typography variant="body1" color="text.primary">{item.label}</Typography>
+                        <Link key={item.href} href={item.href} style={{ textDecoration: "none" }} >
+                            <Typography variant="h6" color="text.primary">{item.label}</Typography>
                         </Link>
                     ))}
                 </Box>
