@@ -12,7 +12,7 @@ import {LogoHorizontalTransparent, LogoTransparent} from "@/components/comm/Logo
 
 const navItems = [
     { label: 'دوره‌ها', href: '/courses' },
-    { label: 'مقالات', href: '/articles' },
+    { label: 'مقالات', href: '/blog/list' },
     { label: 'تمرین‌ها', href: '/exercises' },
     { label: 'پرسش و پاسخ', href: '/qa' },
 ]

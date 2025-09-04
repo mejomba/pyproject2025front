@@ -29,10 +29,10 @@ export default async function BlogListPage({ searchParams }: { searchParams: Rec
                     {
                         "slug": "slug",
                         "title": "title",
-                        "excerpt": "excerpt",
+                        "excerpt": "خلاصه برای نمایش در کارت مقاله",
                         "cover_image": null,
                         "published_at": "coverAlt",
-                        "reading_time": "authorName",
+                        "reading_time": "۱۶ دقیقه",
                         "views": 26,
                         "tags": ["tags1", 't2'],
                         "author": {
@@ -66,7 +66,7 @@ export default async function BlogListPage({ searchParams }: { searchParams: Rec
 
     return (
         <Container maxWidth="lg" sx={{ py: 4 }}>
-            <Typography variant="h4" component="h1" gutterBottom fontWeight={700}>
+            <Typography variant="h4" component="h1" gutterBottom fontWeight={500}>
                 مقالات بلاگ
             </Typography>
 
