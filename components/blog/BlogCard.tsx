@@ -121,11 +121,12 @@ export const BlogCard: React.FC<BlogCardProps> = React.memo(
         );
 
         const Content = (
-            <CardContent sx={{ p: 2, flex: 1 }}>
-                <Stack spacing={1}>
-                    <MuiLink href={href} sx={{ textDecoration: "none", color: "secondary.main" }}>
+            <CardContent sx={{ p: 2, flex: 1, display: "flex", flexDirection: "column" }}>
+                <Stack spacing={1} sx={{ flexGrow: 1 }}>
+                    {/* ========== title ========== */}
+                    <MuiLink href={href} sx={{ textDecoration: "none", color: "secondary.main" }} >
                         <Typography
-                            variant="h6"
+                            variant="subtitle1"
                             component="h3"
                             sx={{ fontWeight: 500, ...clampLines(maxTitleLines) }}
                         >
@@ -133,59 +134,80 @@ export const BlogCard: React.FC<BlogCardProps> = React.memo(
                         </Typography>
                     </MuiLink>
 
+                    {/* ========== excerpt ========== */}
                     {excerpt ? (
-                        <Typography variant="body2" color="text.secondary" sx={clampLines(maxExcerptLines)}>
+                        <Typography
+                            variant="body2"
+                            color="text.secondary"
+                            sx={clampLines(maxExcerptLines)}
+                        >
                             {excerpt}
                         </Typography>
                     ) : null}
 
-                    <Stack direction="row" spacing={1} alignItems="center" sx={{ mt: 0.5 }}>
-                        {authorAvatarUrl ? <Avatar src={authorAvatarUrl || undefined} alt={authorName} sx={{ width: 24, height: 24 }} /> : null}
-                        {authorName ? (
-                            <Typography variant="caption" color="text.secondary">
-                                {authorName}
-                            </Typography>
-                        ) : null}
-                        {(authorName && (publishedAt || readingTime)) ? (
-                            <Typography variant="caption" color="text.disabled">•</Typography>
-                        ) : null}
-                        {publishedAt ? (
-                            <Typography variant="caption" color="text.secondary">
-                                {publishedAt}
-                            </Typography>
-                        ) : null}
-                    </Stack>
-
-                    <Stack direction="row" spacing={1} alignItems="center" sx={{ mt: 0.5 }}>
-                        {readingTime ? (
-                            <>
-                                <Typography variant="caption" color="text.disabled">•</Typography>
-                                <Typography variant="caption" color="text.secondary">{readingTime}</Typography>
-                            </>
-                        ) : null}
-                        {typeof views === "number" ? (
-                            <>
-                                <Typography variant="caption" color="text.disabled">•</Typography>
-                                <Typography variant="caption" color="text.secondary">{views.toLocaleString()} بازدید</Typography>
-                            </>
-                        ) : null}
-                    </Stack>
-
+                    {/* ========== tags ========== */}
                     {tags?.length ? (
                         <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap", mt: 0.5 }}>
                             {tags.slice(0, 6).map((tag) => (
-                                <Chip key={tag} label={tag} size="small" variant="outlined" component={MuiLink} href={"#"}
-                                      sx={{
-                                          cursor: "pointer",
-                                          transition: "background-color 0.3s ease",
-                                          "&:hover":
-                                              { bgcolor: 'action.hover' },
-                                      }}  />
+                                <Chip
+                                    key={tag}
+                                    label={tag}
+                                    size="small"
+                                    variant="outlined"
+                                    component={MuiLink}
+                                    href={"#"}
+                                    sx={{
+                                        cursor: "pointer",
+                                        transition: "background-color 0.3s ease",
+                                        "&:hover": { bgcolor: "action.hover" },
+                                    }}
+                                />
                             ))}
                         </Box>
                     ) : null}
                 </Stack>
+
+                {/* ========== author and view-count ========== */}
+                <Stack
+                    direction="row"
+                    spacing={1}
+                    alignItems="center"
+                    sx={{ mt: 1, pt: 1, borderTop: "1px solid", borderColor: "divider" }}
+                >
+                    {authorAvatarUrl ? (
+                        <Avatar
+                            src={authorAvatarUrl}
+                            alt={authorName}
+                            sx={{ width: 24, height: 24 }}
+                        />
+                    ) : <Avatar
+                        src={DEFAULT_PLACEHOLDER.src}
+                        alt={authorName}
+                        sx={{ width: 24, height: 24 }}
+                    />}
+
+                    {authorName ? (
+                        <Typography variant="caption" color="text.secondary">
+                            {authorName}
+                        </Typography>
+                    ) : null}
+
+                    {(authorName && (publishedAt || readingTime)) ? (
+                        <Typography variant="caption" color="text.disabled">
+                            •
+                        </Typography>
+                    ) : null}
+
+                    {typeof views === "number" ? (
+                        <>
+                            <Typography variant="caption" color="text.secondary">
+                                {views.toLocaleString()} بازدید
+                            </Typography>
+                        </>
+                    ) : null}
+                </Stack>
             </CardContent>
+
         );
 
         const inner = (

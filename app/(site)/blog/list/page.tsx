@@ -33,7 +33,7 @@ export default async function BlogListPage({ searchParams }: { searchParams: Rec
                     {
                         "slug": "slug",
                         "title": "تنظیم NginX به عنوان وب سرور برای جنگو",
-                        "excerpt": "خلاصه برای نمایش در کارت مقاله",
+                        "excerpt": "خلاصه برای نمایش در کارت مقاله که ممکنه تا ۳ خط ادامه داشته باشه و english word هم inesh باشه",
                         "cover_image": null,
                         "published_at": "1404/06/12",
                         "reading_time": "۱۶ دقیقه",
@@ -42,7 +42,7 @@ export default async function BlogListPage({ searchParams }: { searchParams: Rec
                         "href": "/",
                         "author": {
                             "full_name": "مجتبی امین زاده",
-                            "avatar": "#"
+                            "avatar": null
                         }
                     },
                     {
