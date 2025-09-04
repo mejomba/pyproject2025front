@@ -2,8 +2,8 @@
 
 @font-face {
   font-family: 'Shabnam';
-  src: url('/fonts/shabnam/Farsi-Digits-Without-Latin/Shabnam-Thin-FD-WOL.woff') format('woff');
-  src: url('/fonts/shabnam/Farsi-Digits-Without-Latin/Shabnam-Thin-FD-WOL.woff2') format('woff2');
+  src: url('/fonts/shabnam/Farsi-Digits/Shabnam-Thin-FD.woff') format('woff');
+  src: url('/fonts/shabnam/Farsi-Digits/Shabnam-Thin-FD.woff2') format('woff2');
   font-weight: 100;
   font-style: normal;
   font-display: swap;
@@ -11,17 +11,18 @@
 
 @font-face {
   font-family: 'Shabnam';
-  src: url('/fonts/shabnam/Farsi-Digits-Without-Latin/Shabnam-Light-FD-WOL.woff') format('woff');
-  src: url('/fonts/shabnam/Farsi-Digits-Without-Latin/Shabnam-Light-FD-WOL.woff2') format('woff2');
+  src: url('/fonts/shabnam/Farsi-Digits/Shabnam-Light-FD.woff') format('woff');
+  src: url('/fonts/shabnam/Farsi-Digits/Shabnam-Light-FD.woff2') format('woff2');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
+
 }
 
 @font-face {
   font-family: 'Shabnam';
-  src: url('/fonts/shabnam/Farsi-Digits-Without-Latin/Shabnam-Medium-FD-WOL.woff') format('woff');
-  src: url('/fonts/shabnam/Farsi-Digits-Without-Latin/Shabnam-Medium-FD-WOL.woff2') format('woff2');
+  src: url('/fonts/shabnam/Farsi-Digits/Shabnam-Medium-FD.woff') format('woff');
+  src: url('/fonts/shabnam/Farsi-Digits/Shabnam-Medium-FD.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -29,8 +30,8 @@
 
 @font-face {
   font-family: 'Shabnam';
-  src: url('/fonts/shabnam/Farsi-Digits-Without-Latin/Shabnam-Bold-FD-WOL.woff') format('woff');
-  src: url('/fonts/shabnam/Farsi-Digits-Without-Latin/Shabnam-Bold-FD-WOL.woff2') format('woff2');
+  src: url('/fonts/shabnam/Farsi-Digits/Shabnam-Bold-FD.woff') format('woff');
+  src: url('/fonts/shabnam/Farsi-Digits/Shabnam-Bold-FD.woff2') format('woff2');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -59,18 +60,18 @@ body {
   font-family: 'Shabnam', sans-serif;
 }
 
-.font-thin {
+.font-100 {
   font-weight: 100;
 }
 
-.font-light {
+.font-300 {
   font-weight: 300;
 }
 
-.font-medium {
+.font-500 {
   font-weight: 500;
 }
 
-.font-bold {
+.font-700 {
   font-weight: 700;
 }

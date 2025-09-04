@@ -4,8 +4,10 @@
 "use client";
 
 import * as React from "react";
-import Link from "next/link";
+// import Link from "next/link";
 import Image from "next/image";
+import DEFAULT_PLACEHOLDER from "@/images/placeholders/blog-cover.png"
+
 import {
     Card,
     CardActionArea,
@@ -18,6 +20,7 @@ import {
     Avatar,
     Button,
     Skeleton,
+    Link as MuiLink
 } from "@mui/material";
 // import theme from "tailwindcss/defaultTheme";
 
@@ -56,7 +59,7 @@ export interface BlogCardProps {
     className?: string;
 }
 
-const DEFAULT_PLACEHOLDER = "/images/placeholders/blog-cover.png";
+// const DEFAULT_PLACEHOLDER = "/images/placeholders/blog-cover.png";
 
 function clampLines(lines: number) {
     return {
@@ -120,32 +123,20 @@ export const BlogCard: React.FC<BlogCardProps> = React.memo(
         const Content = (
             <CardContent sx={{ p: 2, flex: 1 }}>
                 <Stack spacing={1}>
-                    <Typography
-                        variant="h6"
-                        component="h3"
-                        sx={{ fontWeight: 700, ...clampLines(maxTitleLines) }}
-                    >
-                        {title}
-                    </Typography>
+                    <MuiLink href={href} sx={{ textDecoration: "none", color: "secondary.main" }}>
+                        <Typography
+                            variant="h6"
+                            component="h3"
+                            sx={{ fontWeight: 500, ...clampLines(maxTitleLines) }}
+                        >
+                            {title}
+                        </Typography>
+                    </MuiLink>
 
                     {excerpt ? (
                         <Typography variant="body2" color="text.secondary" sx={clampLines(maxExcerptLines)}>
                             {excerpt}
                         </Typography>
-                    ) : null}
-
-                    {tags?.length ? (
-                        <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap", mt: 0.5 }}>
-                            {tags.slice(0, 6).map((tag) => (
-                                <Chip key={tag} label={tag} size="small" variant="outlined" component={Link} href={"#"}
-                                      sx={{
-                                          cursor: "pointer",
-                                          transition: "background-color 0.3s ease",
-                                          "&:hover":
-                                              { bgcolor: 'action.hover' },
-                                          }}  />
-                            ))}
-                        </Box>
                     ) : null}
 
                     <Stack direction="row" spacing={1} alignItems="center" sx={{ mt: 0.5 }}>
@@ -163,6 +154,9 @@ export const BlogCard: React.FC<BlogCardProps> = React.memo(
                                 {publishedAt}
                             </Typography>
                         ) : null}
+                    </Stack>
+
+                    <Stack direction="row" spacing={1} alignItems="center" sx={{ mt: 0.5 }}>
                         {readingTime ? (
                             <>
                                 <Typography variant="caption" color="text.disabled">•</Typography>
@@ -176,6 +170,20 @@ export const BlogCard: React.FC<BlogCardProps> = React.memo(
                             </>
                         ) : null}
                     </Stack>
+
+                    {tags?.length ? (
+                        <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap", mt: 0.5 }}>
+                            {tags.slice(0, 6).map((tag) => (
+                                <Chip key={tag} label={tag} size="small" variant="outlined" component={MuiLink} href={"#"}
+                                      sx={{
+                                          cursor: "pointer",
+                                          transition: "background-color 0.3s ease",
+                                          "&:hover":
+                                              { bgcolor: 'action.hover' },
+                                      }}  />
+                            ))}
+                        </Box>
+                    ) : null}
                 </Stack>
             </CardContent>
         );
@@ -203,7 +211,7 @@ export const BlogCard: React.FC<BlogCardProps> = React.memo(
         const card = (
             <Card elevation={elevation} className={className} sx={{ borderRadius: (theme) => theme.shape.borderRadius * rounded, height: 1, display: "flex", flexDirection: "column" }}>
                 {clickable ? (
-                    <CardActionArea component={Link} href={to} aria-label={`مشاهده ${title}`} sx={{ height: 1 }}>
+                    <CardActionArea component={MuiLink} href={to} aria-label={`مشاهده ${title}`} sx={{ height: 1 }}>
                         {inner}
                     </CardActionArea>
                 ) : (

@@ -19,6 +19,10 @@ function parseSearchParams(searchParams: Record<string, string | string[] | unde
 } // ================================================== parseSearchParams
 
 export default async function BlogListPage({ searchParams }: { searchParams: Record<string, string | string[] | undefined> }) {
+    const xs = 12
+    const sm = 6
+    const md = 3
+    const spacing = 3
     const { page, pageSize, tag } = parseSearchParams(searchParams);
 
     let data;
@@ -28,15 +32,16 @@ export default async function BlogListPage({ searchParams }: { searchParams: Rec
                 "results": [
                     {
                         "slug": "slug",
-                        "title": "title",
+                        "title": "تنظیم NginX به عنوان وب سرور برای جنگو",
                         "excerpt": "خلاصه برای نمایش در کارت مقاله",
                         "cover_image": null,
-                        "published_at": "coverAlt",
+                        "published_at": "1404/06/12",
                         "reading_time": "۱۶ دقیقه",
                         "views": 26,
-                        "tags": ["tags1", 't2'],
+                        "tags": ["Django", 'NginX', 'جنگو'],
+                        "href": "/",
                         "author": {
-                            "full_name": "string",
+                            "full_name": "مجتبی امین زاده",
                             "avatar": "#"
                         }
                     },
@@ -49,6 +54,7 @@ export default async function BlogListPage({ searchParams }: { searchParams: Rec
                         "reading_time": "authorName",
                         "views": 1005,
                         "tags": ["tags1", 'T5'],
+                        "href": "/",
                         "author": {
                             "full_name": "string",
                             "avatar": "#"
@@ -71,40 +77,41 @@ export default async function BlogListPage({ searchParams }: { searchParams: Rec
             </Typography>
 
             {posts.length === 0 ? (
-                // <Grid container spacing={3}>
-                //     {Array.from({ length: 6 }).map((_, i) => (
-                //         <Grid key={i} item xs={12} sm={6} md={4}>
-                            <BlogCardSkeleton variant="list" />
-                        // </Grid>
-                    // ))}
-                // </Grid>
-            ) : (
-                // <Stack spacing={2}>
-                //     {posts.map((p) => (
-                //         <BlogCard key={p.slug} {...p} variant="list" />
-                //     ))}
-                // </Stack>
-                <Grid container spacing={3}>
-                     {posts.map((post) => (
-                         <Grid key={post.slug} item xs={12} sm={6} md={4}>
-                             <BlogCard
-                                 slug={post.slug}
-                                 title={post.title}
-                                 excerpt={post.excerpt}
-                                 coverImageUrl={post.cover_image ?? undefined}
-                                 coverAlt={post.title}
-                                 authorName={post.author?.full_name}
-                                 authorAvatarUrl={post.author?.avatar ?? undefined}
-                                 publishedAt={post.published_at}
-                                 tags={post.tags}
-                                 readingTime={post.reading_time}
-                                 views={post.views}
-                                 variant="grid"
-                                 rounded={0.5}
-                             />
+                <Grid container spacing={spacing}>
+                     {Array.from({ length: 6 }).map((_, i) => (
+                         <Grid key={i} item xs={xs} sm={sm} md={md}>
+                            <BlogCardSkeleton variant="grid" />
                          </Grid>
                      ))}
-                 </Grid>
+                </Grid>
+            ) : (
+                // <Stack spacing={2}>
+                //      {posts.map((p) => (
+                //          <BlogCard key={p.slug} {...p} variant="list" />
+                //      ))}
+                // </Stack>
+                <Grid container spacing={spacing}>
+                    {posts.map((post) => (
+                        <Grid key={post.slug} item xs={xs} sm={sm} md={md}>
+                            <BlogCard
+                                slug={post.slug}
+                                title={post.title}
+                                excerpt={post.excerpt}
+                                coverImageUrl={post.cover_image ?? undefined}
+                                coverAlt={post.title}
+                                authorName={post.author?.full_name}
+                                authorAvatarUrl={post.author?.avatar ?? undefined}
+                                publishedAt={post.published_at}
+                                tags={post.tags}
+                                readingTime={post.reading_time}
+                                views={post.views}
+                                variant="grid"
+                                rounded={0.5}
+                                href={post.href}
+                            />
+                        </Grid>
+                    ))}
+                </Grid>
             )}
         </Container>
     );
