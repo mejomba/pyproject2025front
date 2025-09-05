@@ -28,7 +28,7 @@ export default function Navbar() {
                 <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 3 }}>
                     {navItems.map((item) => (
                         <Link key={item.href} href={item.href} style={{ textDecoration: "none" }} >
-                            <Typography variant="h6" color="text.primary">{item.label}</Typography>
+                            <Typography variant="h6" color="text.primary"  className="font-300">{item.label}</Typography>
                         </Link>
                     ))}
                 </Box>
