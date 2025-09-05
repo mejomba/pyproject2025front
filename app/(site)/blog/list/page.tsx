@@ -39,7 +39,7 @@ export default async function BlogListPage({ searchParams }: { searchParams: Rec
                         "reading_time": "۱۶ دقیقه",
                         "views": 26,
                         "tags": ["Django", 'NginX', 'جنگو'],
-                        "href": "/",
+                        "href": "/blog/some-slug",
                         "author": {
                             "full_name": "مجتبی امین زاده",
                             "avatar": null

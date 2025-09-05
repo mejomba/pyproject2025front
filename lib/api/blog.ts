@@ -44,3 +44,16 @@ export async function getBlogPosts({ page, pageSize, tag }: { page: number; page
         throw new Error(`Failed to load posts: ${status ?? 'unknown'}`);
     }
 }
+
+
+export async function getPostBySlug(slug: string) {
+    return {
+        "title": "title",
+        "content": "content"
+    }
+    const res = await api.get(`${process.env.API_URL}/posts/${slug}`, {});
+
+    if (!res.ok) return null;
+
+    return res.json();
+}
