@@ -178,12 +178,12 @@ export const BlogCard: React.FC<BlogCardProps> = React.memo(
                         <Avatar
                             src={authorAvatarUrl}
                             alt={authorName}
-                            sx={{ width: 24, height: 24 }}
+                            sx={{ width: 28, height: 28 }}
                         />
                     ) : <Avatar
                         src={DEFAULT_PLACEHOLDER.src}
                         alt={authorName}
-                        sx={{ width: 24, height: 24 }}
+                        sx={{ width: 28, height: 28 }}
                     />}
 
                     {authorName ? (
@@ -192,7 +192,7 @@ export const BlogCard: React.FC<BlogCardProps> = React.memo(
                         </Typography>
                     ) : null}
 
-                    {(authorName && (publishedAt || readingTime)) ? (
+                    {(authorName && views) ? (
                         <Typography variant="caption" color="text.disabled">
                             •
                         </Typography>
