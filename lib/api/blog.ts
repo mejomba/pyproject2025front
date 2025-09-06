@@ -1,12 +1,14 @@
 // lib/api/blog.ts
 import api from '@/lib/axios';
 import { cookies } from 'next/headers';
+import DEFAULT_PLACEHOLDER from "@/images/placeholders/blog-cover.png";
 
 export interface Author {
     full_name?: string;
     avatar?: string | null;
 }
 export interface ApiPost {
+    content: string;
     slug: string;
     title: string;
     excerpt?: string;
@@ -47,10 +49,22 @@ export async function getBlogPosts({ page, pageSize, tag }: { page: number; page
 
 
 export async function getPostBySlug(slug: string) {
-    return {
-        "title": "title",
-        "content": "content"
+    const data =  {
+        content: "content",
+        slug: "some-slug",
+        title: "title",
+        excerpt: "excerpt",
+        cover_image: null || DEFAULT_PLACEHOLDER.src,
+        published_at: "published_at",
+        reading_time: "1111",
+        views: 1204,
+        tags: ['tag1', 'tag2'],
+        author: {
+            full_name: "mojtaba",
+            avatar: null
+        }
     }
+    return data as ApiPost;
     const res = await api.get(`${process.env.API_URL}/posts/${slug}`, {});
 
     if (!res.ok) return null;

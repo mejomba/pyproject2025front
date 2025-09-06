@@ -11,15 +11,17 @@ import {
     IconButton,
     AppBar,
     Toolbar,
-    Box
+    Box, CardMedia
 } from "@mui/material";
 import PictureAsPdfIcon from "@mui/icons-material/PictureAsPdf";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import CloseIcon from "@mui/icons-material/Close";
+import {ApiPost} from "@/lib/api/blog";
 
-export default function BlogDetailMeta({ content } : {content: string}) {
+
+export default function BlogDetailMeta({ post } : ApiPost) {
     const [open, setOpen] = useState(false);
 
     return (
@@ -72,7 +74,7 @@ export default function BlogDetailMeta({ content } : {content: string}) {
                 <AppBar sx={{ position: "relative"}}>
                     <Toolbar>
                         <Typography sx={{ flex: 1 }} variant="h6">
-                            استفاده از NginX به عنوان وب سرور در پروژه های Django
+                            {post.title}
                         </Typography>
                         <IconButton edge="end" color="inherit" onClick={() => setOpen(false)}>
                             <CloseIcon />
@@ -82,8 +84,15 @@ export default function BlogDetailMeta({ content } : {content: string}) {
 
                 <DialogContent sx={{ p: 4, display: "flex", justifyContent: "center" }}>
                     <Box sx={{ maxWidth: "1000px", width: "100%" }}>
+                        {/* image */}
+                        <CardMedia
+                            component="img"
+                            image={post.cover_image}
+                            alt="Article header"
+                            sx={{ borderRadius: 2, my: 2 }}
+                        />
                         <Typography variant="body1" sx={{ textAlign: "justify", lineHeight: 2 }}>
-                            {content}
+                            {post.content}
                         </Typography>
                     </Box>
                 </DialogContent>
