@@ -27,42 +27,7 @@ export default async function BlogListPage({ searchParams }: { searchParams: Rec
 
     let data;
     try {
-        // data = await getBlogPosts({ page, pageSize, tag });
-        data = {
-                "results": [
-                    {
-                        "slug": "slug",
-                        "title": "تنظیم NginX به عنوان وب سرور برای جنگو",
-                        "excerpt": "خلاصه برای نمایش در کارت مقاله که ممکنه تا ۳ خط ادامه داشته باشه و english word هم inesh باشه",
-                        "cover_image": null,
-                        "published_at": "1404/06/12",
-                        "reading_time": "۱۶ دقیقه",
-                        "views": 26,
-                        "tags": ["Django", 'NginX', 'جنگو'],
-                        "href": "/blog/some-slug",
-                        "author": {
-                            "full_name": "مجتبی امین زاده",
-                            "avatar": null
-                        }
-                    },
-                    {
-                        "slug": "slug",
-                        "title": "title",
-                        "excerpt": "excerpt",
-                        "cover_image": null,
-                        "published_at": "coverAlt",
-                        "reading_time": "authorName",
-                        "views": 1005,
-                        "tags": ["tags1", 'T5'],
-                        "href": "/",
-                        "author": {
-                            "full_name": "string",
-                            "avatar": "#"
-                        }
-                    },
-                ]
-            }
-
+        data = await getBlogPosts({ page, pageSize, tag });
     } catch (error) {
         console.error('Error fetching blog posts:', error);
         data = { count: 0, next: null, previous: null, results: [] };
