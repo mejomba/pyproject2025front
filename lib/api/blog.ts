@@ -35,11 +35,12 @@ export async function getBlogPosts({ page, pageSize, tag }: { page: number; page
     try {
         const { data } = await api.get('/blog/posts/', {
             params,
-            // headers: {
-            //     ...(cookieHeader ? { Cookie: cookieHeader } : {}),
-            //     Accept: 'application/json',
-            // },
+            headers: {
+                ...(cookieHeader ? { Cookie: cookieHeader } : {}),
+                Accept: 'application/json',
+            },
         });
+        console.log(data)
         return data as PaginatedResponse<ApiPost>;
     } catch (err: any) {
         const status = err?.response?.status;
