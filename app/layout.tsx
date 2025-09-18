@@ -1,6 +1,7 @@
 import '@/app/globals.css'
 import ThemeRegistry from '@/components/ThemeRegistry'
 import { cookies } from 'next/headers';
+import ProgressBarProvider from "./provider"
 
 
 export const metadata = {
@@ -15,6 +16,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     return (
         <html lang="fa" dir="rtl">
         <body>
+        <ProgressBarProvider />
         <ThemeRegistry initialMode={initialMode}>{children}</ThemeRegistry>
         </body>
         </html>
