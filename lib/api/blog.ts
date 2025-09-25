@@ -12,9 +12,11 @@ export interface ApiPost {
     slug: string;
     title: string;
     excerpt?: string;
-    cover_image?: string | null;
+    thumbnail?: string | null;
     published_at?: string;
     reading_time?: string;
+    seo_title?: string;
+    category?: string
     views?: number;
     tags?: string[];
     author?: Author;
@@ -40,7 +42,7 @@ export async function getBlogPosts({ page, pageSize, tag }: { page: number; page
                 Accept: 'application/json',
             },
         });
-        console.log(data)
+        
         return data as PaginatedResponse<ApiPost>;
     } catch (err: any) {
         const status = err?.response?.status;
@@ -50,25 +52,27 @@ export async function getBlogPosts({ page, pageSize, tag }: { page: number; page
 
 
 export async function getPostBySlug(slug: string) {
-    const data =  {
-        content: "content",
-        slug: "some-slug",
-        title: "title",
-        excerpt: "excerpt",
-        cover_image: null || DEFAULT_PLACEHOLDER.src,
-        published_at: "published_at",
-        reading_time: "1111",
-        views: 1204,
-        tags: ['tag1', 'tag2'],
-        author: {
-            full_name: "mojtaba",
-            avatar: null
-        }
-    }
-    return data as ApiPost;
-    const res = await api.get(`${process.env.API_URL}/posts/${slug}`, {});
+    // const data =  {
+    //     content: "content",
+    //     slug: "some-slug",
+    //     title: "title",
+    //     excerpt: "excerpt",
+    //     cover_image: null || DEFAULT_PLACEHOLDER.src,
+    //     published_at: "published_at",
+    //     reading_time: "1111",
+    //     views: 1204,
+    //     tags: ['tag1', 'tag2'],
+    //     author: {
+    //         full_name: "mojtaba",
+    //         avatar: null
+    //     }
+    // }
 
-    if (!res.ok) return null;
+    //return data as ApiPost;
+    const res = await api.get(`/blog/posts/${slug}`, {});
+    console.log('post: ', res)
 
-    return res.json();
+    if (res.status !== 200) return null;
+
+    return res.data as ApiPost;
 }
