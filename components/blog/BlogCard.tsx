@@ -4,7 +4,7 @@
 "use client";
 
 import * as React from "react";
-// import Link from "next/link";
+import SafeTypography from "@/components/comm/safeTypographi"
 import Image from "next/image";
 import DEFAULT_PLACEHOLDER from "@/images/placeholders/blog-cover.png"
 
@@ -124,7 +124,7 @@ export const BlogCard: React.FC<BlogCardProps> = React.memo(
             <CardContent sx={{ p: 2, flex: 1, display: "flex", flexDirection: "column" }}>
                 <Stack spacing={1} sx={{ flexGrow: 1 }}>
                     {/* ========== title ========== */}
-                    <MuiLink href={href} sx={{ textDecoration: "none", color: "secondary.main" }} >
+                    <MuiLink target="_blank" href={to} sx={{ textDecoration: "none", color: "secondary.main" }} className={"link"} >
                         <Typography
                             variant="subtitle1"
                             component="h3"
@@ -136,13 +136,7 @@ export const BlogCard: React.FC<BlogCardProps> = React.memo(
 
                     {/* ========== excerpt ========== */}
                     {excerpt ? (
-                        <Typography
-                            variant="body2"
-                            color="text.secondary"
-                            sx={clampLines(maxExcerptLines)}
-                        >
-                            {excerpt}
-                        </Typography>
+                            <SafeTypography html={excerpt} />
                     ) : null}
 
                     {/* ========== tags ========== */}
@@ -150,8 +144,8 @@ export const BlogCard: React.FC<BlogCardProps> = React.memo(
                         <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap", mt: 0.5 }}>
                             {tags.slice(0, 6).map((tag) => (
                                 <Chip
-                                    key={tag}
-                                    label={tag}
+                                    key={tag.id}
+                                    label={tag.title}
                                     size="small"
                                     variant="outlined"
                                     component={MuiLink}

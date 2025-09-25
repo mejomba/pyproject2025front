@@ -19,9 +19,10 @@ import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import CloseIcon from "@mui/icons-material/Close";
 import {ApiPost} from "@/lib/api/blog";
+import SafeTypography from "@/components/comm/safeTypographi";
 
 
-export default function BlogDetailMeta({ post } : ApiPost) {
+export default function BlogDetailMeta(post: ApiPost) {
     const [open, setOpen] = useState(false);
 
     return (
@@ -91,9 +92,7 @@ export default function BlogDetailMeta({ post } : ApiPost) {
                             alt="Article header"
                             sx={{ borderRadius: 2, my: 2 }}
                         />
-                        <Typography variant="body1" sx={{ textAlign: "justify", lineHeight: 2 }}>
-                            {post.content}
-                        </Typography>
+                        <SafeTypography html={post.content} allowRichContent={true} />
                     </Box>
                 </DialogContent>
             </Dialog>
