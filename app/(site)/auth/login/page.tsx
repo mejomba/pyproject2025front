@@ -19,7 +19,6 @@ export default function LoginPage() {
         setError('')
         try {
             const result = await phoneCheck(phone, method)
-            console.log(result)
             const next_step = result.next_step
             if (method === 'otp'){
                 await sendOtp(phone)
