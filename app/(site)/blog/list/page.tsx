@@ -62,14 +62,14 @@ export default async function BlogListPage({ searchParams }: { searchParams: Rec
                                 slug={post.slug}
                                 title={post.title}
                                 excerpt={post.excerpt}
-                                coverImageUrl={post.cover_image ?? undefined}
+                                coverImageUrl={post.thumbnail ?? undefined}
                                 coverAlt={post.title}
                                 authorName={post.author?.full_name}
                                 authorAvatarUrl={post.author?.avatar ?? undefined}
                                 publishedAt={post.published_at}
                                 tags={post.tags}
                                 readingTime={post.reading_time}
-                                views={post.views}
+                                views={post.view_count}
                                 variant="grid"
                                 rounded={0.5}
                                 href={post.href}

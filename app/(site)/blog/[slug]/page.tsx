@@ -4,6 +4,7 @@ import {Grid, Typography, Paper, CardMedia} from "@mui/material";
 import BlogDetailMeta from "@/components/blog/BlogDetailMeta"
 import DEFAULT_PLACEHOLDER from "@/images/placeholders/blog-cover.png"
 import {getPostBySlug} from "@/lib/api/blog";
+import SafeTypography from "@/components/comm/safeTypographi";
 
 type Props = {
     params: { slug: string };
@@ -39,19 +40,20 @@ export default async function BlogDetail({ params }: Props) {
                     </Typography>
 
                     {/* Meta */}
-                    <BlogDetailMeta post={post} />
+                    <BlogDetailMeta {...post} />
 
                     {/* image */}
                     <CardMedia
                         component="img"
-                        image={DEFAULT_PLACEHOLDER.src}
+                        // image={DEFAULT_PLACEHOLDER.src}
+                        image={post.thumbnail}
                         alt="Article header"
                         sx={{ borderRadius: 2, my: 2 }}
                     />
-
-                    <Typography variant="body1" paragraph textAlign="justify" className="font-300">
-                        {post.content}
-                    </Typography>
+                    <SafeTypography html={post.content} allowRichContent={true} />
+                    {/* <Typography variant="body1" paragraph textAlign="justify" className="font-300"> */}
+                        {/* {post.content} */}
+                    {/* </Typography> */}
                 </Paper>
             </Grid>
 
