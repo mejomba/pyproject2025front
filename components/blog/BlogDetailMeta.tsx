@@ -88,7 +88,7 @@ export default function BlogDetailMeta(post: ApiPost) {
                         {/* image */}
                         <CardMedia
                             component="img"
-                            image={post.cover_image}
+                            image={post.thumbnail}
                             alt="Article header"
                             sx={{ borderRadius: 2, my: 2 }}
                         />
